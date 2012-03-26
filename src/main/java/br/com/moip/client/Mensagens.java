@@ -13,12 +13,7 @@ public class Mensagens {
 	@XStreamAlias("Mensagem")
 	private List<String> mensagens;
 
-	public static Mensagens mensagens() {
-		return new Mensagens();
-	}
-
 	public Mensagens adicionaMensagem(final String mensagem) {
-
 		if (this.mensagens == null) {
 			this.mensagens = new ArrayList<String>();
 		}

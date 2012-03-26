@@ -8,10 +8,6 @@ public class Boleto {
 	private String Instrucao3;
 	private String URLLogo;
 
-	public static Boleto boleto() {
-		return new Boleto();
-	}
-
 	public Boleto comDiasParaExpiracao(final String diasExpiracao) {
 		this.DiasExpiracao = diasExpiracao;
 		return this;

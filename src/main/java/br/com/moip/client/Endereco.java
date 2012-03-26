@@ -31,10 +31,6 @@ public class Endereco {
     @XStreamAlias("TelefoneFixo")
     private String telefoneFixo;
 
-    public static Endereco enderecoCobranca() {
-        return new Endereco();
-    }
-
     public static Endereco enderecoEntrega() {
         return new Endereco();
     }

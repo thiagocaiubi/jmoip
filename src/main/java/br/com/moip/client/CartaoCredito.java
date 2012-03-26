@@ -16,10 +16,6 @@ public class CartaoCredito {
 	@XStreamAlias("Portador")
 	private Portador portador;
 
-	public static CartaoCredito cartaoCredito() {
-		return new CartaoCredito();
-	}
-
 	public CartaoCredito comNumero(final String numero) {
 		this.numero = numero;
 		return this;

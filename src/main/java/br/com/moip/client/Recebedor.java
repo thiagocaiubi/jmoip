@@ -10,10 +10,6 @@ public class Recebedor {
 	@XStreamAlias("Apelido")
 	private String apelido;
 
-	public static Recebedor recebedor() {
-		return new Recebedor();
-	}
-
 	public Recebedor comLoginMoip(final String loginMoIP) {
 		this.loginMoIP = loginMoIP;
 		return this;

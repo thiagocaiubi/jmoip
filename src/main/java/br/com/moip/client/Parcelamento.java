@@ -10,10 +10,6 @@ public class Parcelamento {
 	@XStreamAlias("Recebimento")
 	private String recebimento;
 
-	public static Parcelamento parcelamento() {
-		return new Parcelamento();
-	}
-
 	public Parcelamento comNumeroParcelas(final String parcelas) {
 		this.parcelas = parcelas;
 		return this;

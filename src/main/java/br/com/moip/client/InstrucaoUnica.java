@@ -38,10 +38,6 @@ public class InstrucaoUnica {
 	@XStreamAlias("Comissoes")
 	private Comissoes comissoes;
 
-	public static InstrucaoUnica instrucaoUnica() {
-		return new InstrucaoUnica();
-	}
-
 	public InstrucaoUnica comRazao(final String razao) {
 		this.razao = razao;
 		return this;

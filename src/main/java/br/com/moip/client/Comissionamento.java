@@ -13,10 +13,6 @@ public class Comissionamento {
 	@XStreamAlias("Razao")
 	private String razao;
 
-	public static Comissionamento comissionamento() {
-		return new Comissionamento();
-	}
-
 	public Comissionamento comRazao(final String razao) {
 		this.razao = razao;
 		return this;
