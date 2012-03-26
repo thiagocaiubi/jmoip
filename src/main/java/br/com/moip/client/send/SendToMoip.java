@@ -28,20 +28,11 @@ public abstract class SendToMoip {
 		this.key = key;
 	}
 
-	public EnviarInstrucaoUnicaResponse send(
-			final EnviarInstrucao enviarInstrucao) {
-		HttpClient client = new HttpClient();
+	public EnviarInstrucaoUnicaResponse send(final EnviarInstrucao enviarInstrucao) {
+		String authorizationHeader = createAuthorizationHeader();
 
 		PostMethod post = new PostMethod(getEnviroment());
-
-		String authHeader = token + ":" + key;
-		String hash = this.hash;
-		if (hasHash()) {
-			hash = Base64.encodeBase64String(authHeader.getBytes());
-		}
-		String encoded = "Basic " + hash;
-
-		post.setRequestHeader("Authorization", encoded);
+		post.setRequestHeader("Authorization", authorizationHeader);
 		post.setDoAuthentication(true);
 
 		XStream xstream = new XStream();
@@ -49,18 +40,15 @@ public abstract class SendToMoip {
 		String body = xstream.toXML(enviarInstrucao);
 
 		try {
-
-			RequestEntity requestEntity = new StringRequestEntity(body,
-					"application/x-www-formurlencoded", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(body, "application/x-www-formurlencoded", "UTF-8");
 			post.setRequestEntity(requestEntity);
 
-			int status = client.executeMethod(post);
-			System.out.println(status);
+			HttpClient client = new HttpClient();
+			client.executeMethod(post);
 
 			xstream.processAnnotations(EnviarInstrucaoUnicaResponse.class);
 
-			return (EnviarInstrucaoUnicaResponse) xstream.fromXML(post
-					.getResponseBodyAsString());
+			return (EnviarInstrucaoUnicaResponse) xstream.fromXML(post.getResponseBodyAsString());
 		} catch (Exception e) {
 
 			throw new MoipClientException(e);
@@ -68,6 +56,16 @@ public abstract class SendToMoip {
 
 			post.releaseConnection();
 		}
+	}
+
+	private String createAuthorizationHeader() {
+		String authHeader = token + ":" + key;
+		String hash = this.hash;
+		if (hasHash()) {
+			hash = Base64.encodeBase64String(authHeader.getBytes());
+		}
+		String authorizationHeader = "Basic " + hash;
+		return authorizationHeader;
 	}
 
 	public abstract String getEnviroment();
@@ -102,5 +100,4 @@ public abstract class SendToMoip {
 	public void setHash(final String hash) {
 		this.hash = hash;
 	}
-
 }
