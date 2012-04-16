@@ -1,32 +1,31 @@
-import static br.com.moip.client.Boleto.boleto;
-import static br.com.moip.client.CartaoCredito.cartaoCredito;
-import static br.com.moip.client.Comissionado.comissionado;
-import static br.com.moip.client.Comissionamento.comissionamento;
-import static br.com.moip.client.Comissoes.comissoes;
-import static br.com.moip.client.Endereco.enderecoCobranca;
-import static br.com.moip.client.InstrucaoUnica.instrucaoUnica;
-import static br.com.moip.client.Pagador.pagador;
-import static br.com.moip.client.PagamentoDireto.pagamentoDireto;
-import static br.com.moip.client.Portador.portador;
-import static br.com.moip.client.Recebedor.recebedor;
-import static br.com.moip.client.Valores.valores;
+import br.com.moip.client.Boleto;
+import br.com.moip.client.CartaoCredito;
+import br.com.moip.client.Comissionado;
+import br.com.moip.client.Comissionamento;
+import br.com.moip.client.Comissoes;
+import br.com.moip.client.Endereco;
 import br.com.moip.client.EnviarInstrucao;
+import br.com.moip.client.InstrucaoUnica;
+import br.com.moip.client.Pagador;
+import br.com.moip.client.PagamentoDireto;
+import br.com.moip.client.Portador;
+import br.com.moip.client.Recebedor;
+import br.com.moip.client.Valores;
 
 public class Test {
 
 	public static void main(final String[] args) {
-
 		EnviarInstrucao enviarInstrucao = new EnviarInstrucao()
-				.comInstrucaoUnica(instrucaoUnica()
+				.comInstrucaoUnica(new InstrucaoUnica()
 						.comRazao("Uma motivo pela compra")
 						.comIdProprio("teste")
-						.com(pagador()
+						.com(new Pagador()
 								.comNome("Breno Oliveira")
 								.comEmail("breno26@gmail.com")
 								.comIdentidade("222.222.222-22")
 								.comTelefoneCelular("(61)9999-9999")
 								.comEnderecoCobranca(
-										enderecoCobranca()
+										new Endereco()
 												.comLogradouro("Rua Vergueiro")
 												.comNumero("853")
 												.comBairro("Vila Mariano")
@@ -36,40 +35,33 @@ public class Test {
 												.comPais("BRA")
 												.comTelefoneFixo(
 														"(22)2222-2222")))
-						.com(pagamentoDireto()
+						.com(new PagamentoDireto()
 								.comForma("BoletoBancario")
 								.comCartaoCredito(
-										cartaoCredito()
+										new CartaoCredito()
 												.comNumero("3456789012345640")
 												.comExpiracao("08/11")
 												.comCodigoSeguranca("123")
 												.comPortador(
-														portador()
-																.comDataNascimento(
-																		"12/12/2012")
-																.comNome(
-																		"Breno Oliveira")
-																.comIdentidade(
-																		"22222222222")
-																.comTipoDocumento(
-																		"cpf"))))
-						.com(boleto().comDiasParaExpiracao("5"))
-						.com(valores().comValor("15.00"))
-						.com(recebedor().comLoginMoip("teste"))
-						.com(comissoes().comComissionamento(
-								comissionamento()
+														new Portador()
+																.comDataNascimento("12/12/2012")
+																.comNome("Breno Oliveira")
+																.comIdentidade("22222222222")
+																.comTipoDocumento("cpf"))))
+						.com(new Boleto().comDiasParaExpiracao("5"))
+						.com(new Valores().comValor("15.00"))
+						.com(new Recebedor().comLoginMoip("teste"))
+						.com(new Comissoes().comComissionamento(
+								new Comissionamento()
 										.comComissionado(
-												comissionado().comissionado(
-														"likestore"))
-										.comValorPercentual("2")
-										.comRazao("Percentual LikeStore"))));
+												new Comissionado().comissionado("likestore"))
+													.comValorPercentual("2")
+													.comRazao("Percentual LikeStore"))));
 
 		System.out.println(enviarInstrucao);
 
-		// EnviarInstrucaoUnicaResponse response = new SandboxMoip().comHash(
-		// "SEU_HASH").send(enviarInstrucao);
-		//
-		// System.out.println(response);
-
+//		EnviarInstrucaoUnicaResponse response = new SandboxMoip().comHash("SEU_HASH").send(enviarInstrucao);
+//		
+//		System.out.println(response);
 	}
 }
